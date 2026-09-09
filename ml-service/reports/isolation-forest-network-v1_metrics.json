@@ -1,0 +1,185 @@
+{
+  "metadata": {
+    "bundle_format_version": 1,
+    "model_version": "isolation-forest-network-v1",
+    "created_at_utc": "2026-09-09T20:34:32.957472+00:00",
+    "expected_raw_features": [
+      "dur",
+      "proto",
+      "service",
+      "state",
+      "spkts",
+      "dpkts",
+      "sbytes",
+      "dbytes",
+      "rate",
+      "sttl",
+      "dttl",
+      "sload",
+      "dload",
+      "sloss",
+      "dloss",
+      "sinpkt",
+      "dinpkt",
+      "sjit",
+      "djit",
+      "swin",
+      "stcpb",
+      "dtcpb",
+      "dwin",
+      "tcprtt",
+      "synack",
+      "ackdat",
+      "smean",
+      "dmean",
+      "trans_depth",
+      "response_body_len",
+      "ct_srv_src",
+      "ct_state_ttl",
+      "ct_dst_ltm",
+      "ct_src_dport_ltm",
+      "ct_dst_sport_ltm",
+      "ct_dst_src_ltm",
+      "is_ftp_login",
+      "ct_ftp_cmd",
+      "ct_flw_http_mthd",
+      "ct_src_ltm",
+      "ct_srv_dst",
+      "is_sm_ips_ports"
+    ],
+    "excluded_features": [
+      "attack_cat",
+      "id",
+      "label"
+    ],
+    "threshold": 0.95,
+    "threshold_rule": "anomaly_score > threshold",
+    "random_seed": 42,
+    "benign_training_rows": 56000,
+    "transformed_features": 65,
+    "configuration": {
+      "bootstrap": false,
+      "contamination": "auto",
+      "max_features": 1.0,
+      "max_samples": 256,
+      "n_estimators": 100,
+      "n_jobs": 1,
+      "random_state": 42,
+      "verbose": 0,
+      "warm_start": false
+    },
+    "training_methodology": "Official UNSW-NB15 training split only, filtered to label=0 before schema selection or preprocessing fit. Labels only select benign rows; no labels passed to estimator.fit. All benign rows fit preprocessing and supply the ECDF reference. 100 trees, at most 256 samples per tree, one worker and seed 42 bound runtime; no histogram parameters or exhaustive optimisation. Fixed 5% expected training false-positive tolerance; right ECDF > 0.95 includes ties at the boundary and can exceed 5% with tied scores. No test-based threshold adjustment. contamination offset is unused.",
+    "scoring_explanation": "anomaly_score = count(benign training negative score_samples <= event negative score_samples) / benign training count (right-continuous ECDF). Higher means more unusual relative to benign training behaviour, not a calibrated attack probability or XGBoost supervised model_score. Anomaly iff score > 0.95; anomaly_risk_score = 100 * anomaly_score, not hybrid risk.",
+    "score_reference": {
+      "source": "benign official training rows only",
+      "ecdf_side": "right",
+      "count": 56000,
+      "minimum": 0.33791652133064737,
+      "maximum": 0.6265517169428422,
+      "raw_score_95th_percentile": 0.5140310947205333,
+      "quantile_method": "linear",
+      "raw_score": "-model.score_samples",
+      "expected_false_positive_tolerance": 0.05,
+      "observed_training_false_positive_rate": 0.05
+    },
+    "training_duration_seconds": {
+      "preprocessing_fit_transform": 0.20088112499797717,
+      "isolation_forest_fit": 0.2200098329994944,
+      "benign_reference_scoring": 0.19739841699629324,
+      "total": 0.6182893749937648
+    },
+    "package_versions": {
+      "numpy": "2.5.3",
+      "pandas": "3.0.5",
+      "scipy": "1.18.1",
+      "scikit-learn": "1.9.0",
+      "joblib": "1.6.0",
+      "matplotlib": "3.11.1"
+    },
+    "python_version": "3.12.14"
+  },
+  "test_rows": 82332,
+  "isolation_forest": {
+    "accuracy": 0.5780862847981344,
+    "precision": 0.845812389842679,
+    "recall": 0.2858245830759728,
+    "f1": 0.4272641836078548,
+    "roc_auc": 0.7700440310048864,
+    "average_precision": 0.8031739458582527,
+    "confusion_matrix": [
+      [
+        34638,
+        2362
+      ],
+      [
+        32375,
+        12957
+      ]
+    ],
+    "classification_report": {
+      "normal": {
+        "precision": 0.5168847835494605,
+        "recall": 0.9361621621621622,
+        "f1-score": 0.6660321305990597,
+        "support": 37000.0
+      },
+      "attack": {
+        "precision": 0.845812389842679,
+        "recall": 0.2858245830759728,
+        "f1-score": 0.4272641836078548,
+        "support": 45332.0
+      },
+      "accuracy": 0.5780862847981344,
+      "macro avg": {
+        "precision": 0.6813485866960698,
+        "recall": 0.6109933726190675,
+        "f1-score": 0.5466481571034573,
+        "support": 82332.0
+      },
+      "weighted avg": {
+        "precision": 0.6979923267706161,
+        "recall": 0.5780862847981344,
+        "f1-score": 0.5345664966656523,
+        "support": 82332.0
+      }
+    },
+    "prediction_counts": {
+      "0": 67013,
+      "1": 15319
+    },
+    "observed_test_false_positive_rate": 0.06383783783783784,
+    "observed_test_false_negative_count": 32375
+  },
+  "metric_conventions": {
+    "positive_class": "attack=1 evaluated against predicted anomaly",
+    "confusion_matrix_order": "rows=true, columns=predicted; labels=[0,1]",
+    "pr_auc_definition": "average precision, not trapezoidal PR area",
+    "ranking_scores": "benign-reference ECDF anomaly_score; ties retained"
+  },
+  "protected_sha256_before": {
+    "ml-service/data/raw/UNSW_NB15_testing-set.csv": "734fe6642edf758f7c94d7d9149426b49d202fe8e7bf0bef47392489c3c0a559",
+    "ml-service/data/raw/UNSW_NB15_training-set.csv": "bec7dd5ec88dc2a0ccc7a07879d338395ed7421750f675fd0339e07dfe0648fa",
+    "ml-service/models/xgboost-network-v1.joblib": "31e51ecc2f7736d1e913aff2c90a044cdb194cdd7e0a03498eba86efb217d326",
+    "ml-service/reports/xgboost-network-v1_metrics.json": "d17f6570c008fe1bd77ea6621e6a2d9d4cecee5eac2176f83d05aa53ac0eef55"
+  },
+  "protected_sha256_after": {
+    "ml-service/data/raw/UNSW_NB15_testing-set.csv": "734fe6642edf758f7c94d7d9149426b49d202fe8e7bf0bef47392489c3c0a559",
+    "ml-service/data/raw/UNSW_NB15_training-set.csv": "bec7dd5ec88dc2a0ccc7a07879d338395ed7421750f675fd0339e07dfe0648fa",
+    "ml-service/models/xgboost-network-v1.joblib": "31e51ecc2f7736d1e913aff2c90a044cdb194cdd7e0a03498eba86efb217d326",
+    "ml-service/reports/xgboost-network-v1_metrics.json": "d17f6570c008fe1bd77ea6621e6a2d9d4cecee5eac2176f83d05aa53ac0eef55"
+  },
+  "limitations": [
+    "Fixed modest configuration; no exhaustive optimisation.",
+    "Training-reference 5% tolerance is not a guarantee of test or production FPR.",
+    "In-sample benign reference; no independent benign calibration split.",
+    "ECDF saturates beyond training extrema and creates ties in ranking metrics.",
+    "Unseen categories encode as zeros; unusual events need not be attacks.",
+    "2015 lab flow benchmark; no production, endpoint or per-attack validation.",
+    "Official test previously inspected in EDA; no test-based fitting or tuning.",
+    "Duplicates and train/test overlap have not been audited."
+  ],
+  "artifact": {
+    "path": "ml-service/models/isolation-forest-network-v1.joblib",
+    "sha256": "861079c37651627e314403083397d84e7c1be9a2bca9da4ebfa160fc8ae52077"
+  }
+}
