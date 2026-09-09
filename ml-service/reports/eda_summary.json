@@ -1,0 +1,1610 @@
+{
+  "categorical_features": [
+    "proto",
+    "service",
+    "state"
+  ],
+  "numeric_features": [
+    "dur",
+    "spkts",
+    "dpkts",
+    "sbytes",
+    "dbytes",
+    "rate",
+    "sttl",
+    "dttl",
+    "sload",
+    "dload",
+    "sloss",
+    "dloss",
+    "sinpkt",
+    "dinpkt",
+    "sjit",
+    "djit",
+    "swin",
+    "stcpb",
+    "dtcpb",
+    "dwin",
+    "tcprtt",
+    "synack",
+    "ackdat",
+    "smean",
+    "dmean",
+    "trans_depth",
+    "response_body_len",
+    "ct_srv_src",
+    "ct_state_ttl",
+    "ct_dst_ltm",
+    "ct_src_dport_ltm",
+    "ct_dst_sport_ltm",
+    "ct_dst_src_ltm",
+    "is_ftp_login",
+    "ct_ftp_cmd",
+    "ct_flw_http_mthd",
+    "ct_src_ltm",
+    "ct_srv_dst",
+    "is_sm_ips_ports"
+  ],
+  "notes": [
+    "Network-flow benchmark; not endpoint Behaviour Twin validation.",
+    "Test summaries are descriptive only; do not tune using them.",
+    "Relationships are training-only Spearman rank correlations with label.",
+    "Associations are not causation, feature selection or model performance.",
+    "Numeric summaries exclude missing and infinity; counts report both explicitly.",
+    "Literal '-' and 'NA' are preserved; only empty CSV cells are missing.",
+    "No fitting, resampling, SMOTE or predictive modelling performed."
+  ],
+  "splits": {
+    "training": {
+      "shape": [
+        175341,
+        45
+      ],
+      "target_counts": {
+        "0": 56000,
+        "1": 119341
+      },
+      "target_proportions": {
+        "0": 0.319377669797708,
+        "1": 0.680622330202292
+      },
+      "attack_category_counts": {
+        "Analysis": 2000,
+        "Backdoor": 1746,
+        "DoS": 12264,
+        "Exploits": 33393,
+        "Fuzzers": 18184,
+        "Generic": 40000,
+        "Normal": 56000,
+        "Reconnaissance": 10491,
+        "Shellcode": 1133,
+        "Worms": 130
+      },
+      "missing_by_column": {
+        "id": 0,
+        "dur": 0,
+        "proto": 0,
+        "service": 0,
+        "state": 0,
+        "spkts": 0,
+        "dpkts": 0,
+        "sbytes": 0,
+        "dbytes": 0,
+        "rate": 0,
+        "sttl": 0,
+        "dttl": 0,
+        "sload": 0,
+        "dload": 0,
+        "sloss": 0,
+        "dloss": 0,
+        "sinpkt": 0,
+        "dinpkt": 0,
+        "sjit": 0,
+        "djit": 0,
+        "swin": 0,
+        "stcpb": 0,
+        "dtcpb": 0,
+        "dwin": 0,
+        "tcprtt": 0,
+        "synack": 0,
+        "ackdat": 0,
+        "smean": 0,
+        "dmean": 0,
+        "trans_depth": 0,
+        "response_body_len": 0,
+        "ct_srv_src": 0,
+        "ct_state_ttl": 0,
+        "ct_dst_ltm": 0,
+        "ct_src_dport_ltm": 0,
+        "ct_dst_sport_ltm": 0,
+        "ct_dst_src_ltm": 0,
+        "is_ftp_login": 0,
+        "ct_ftp_cmd": 0,
+        "ct_flw_http_mthd": 0,
+        "ct_src_ltm": 0,
+        "ct_srv_dst": 0,
+        "is_sm_ips_ports": 0,
+        "attack_cat": 0,
+        "label": 0
+      },
+      "non_finite_numeric": {
+        "id": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dur": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "spkts": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dpkts": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "sbytes": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dbytes": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "rate": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "sttl": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dttl": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "sload": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dload": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "sloss": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dloss": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "sinpkt": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dinpkt": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "sjit": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "djit": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "swin": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "stcpb": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dtcpb": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dwin": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "tcprtt": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "synack": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ackdat": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "smean": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dmean": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "trans_depth": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "response_body_len": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_srv_src": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_state_ttl": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_dst_ltm": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_src_dport_ltm": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_dst_sport_ltm": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_dst_src_ltm": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "is_ftp_login": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_ftp_cmd": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_flw_http_mthd": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_src_ltm": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_srv_dst": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "is_sm_ips_ports": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "label": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        }
+      },
+      "categorical_cardinality": {
+        "proto": 133,
+        "service": 13,
+        "state": 9
+      },
+      "numeric_summary": {
+        "dur": {
+          "count": 175341.0,
+          "mean": 1.35938869212563,
+          "std": 6.480248856652842,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 8e-06,
+          "50%": 0.001582,
+          "75%": 0.668069,
+          "99%": 45.353334200002166,
+          "max": 59.999989
+        },
+        "spkts": {
+          "count": 175341.0,
+          "mean": 20.29866374664226,
+          "std": 136.88759690768774,
+          "min": 1.0,
+          "1%": 1.0,
+          "25%": 2.0,
+          "50%": 2.0,
+          "75%": 12.0,
+          "99%": 234.0,
+          "max": 9616.0
+        },
+        "dpkts": {
+          "count": 175341.0,
+          "mean": 18.969590683297117,
+          "std": 110.25827058162155,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 2.0,
+          "75%": 10.0,
+          "99%": 400.0,
+          "max": 10974.0
+        },
+        "sbytes": {
+          "count": 175341.0,
+          "mean": 8844.843835725815,
+          "std": 174765.64430947448,
+          "min": 28.0,
+          "1%": 46.0,
+          "25%": 114.0,
+          "50%": 430.0,
+          "75%": 1418.0,
+          "99%": 74125.40000000037,
+          "max": 12965233.0
+        },
+        "dbytes": {
+          "count": 175341.0,
+          "mean": 14928.918564397374,
+          "std": 143654.2177178705,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 164.0,
+          "75%": 1102.0,
+          "99%": 474367.80000000005,
+          "max": 14655550.0
+        },
+        "rate": {
+          "count": 175341.0,
+          "mean": 95406.18710518941,
+          "std": 165400.97845725933,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 32.78614,
+          "50%": 3225.80652,
+          "75%": 125000.0003,
+          "99%": 1000000.003,
+          "max": 1000000.003
+        },
+        "sttl": {
+          "count": 175341.0,
+          "mean": 179.546996994428,
+          "std": 102.94001105701696,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 62.0,
+          "50%": 254.0,
+          "75%": 254.0,
+          "99%": 254.0,
+          "max": 255.0
+        },
+        "dttl": {
+          "count": 175341.0,
+          "mean": 79.60956650184498,
+          "std": 110.50686317659952,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 29.0,
+          "75%": 252.0,
+          "99%": 252.0,
+          "max": 254.0
+        },
+        "sload": {
+          "count": 175341.0,
+          "mean": 73454033.19406255,
+          "std": 188357447.00020307,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 13053.33887,
+          "50%": 879674.75,
+          "75%": 88888888.0,
+          "99%": 800000000.0,
+          "max": 5988000256.0
+        },
+        "dload": {
+          "count": 175341.0,
+          "mean": 671205.5741883258,
+          "std": 2421312.388757486,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 1447.022705,
+          "75%": 27844.87109,
+          "99%": 14655893.60000001,
+          "max": 22422730.0
+        },
+        "sloss": {
+          "count": 175341.0,
+          "mean": 4.953000153985662,
+          "std": 66.00505853508564,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 3.0,
+          "99%": 38.0,
+          "max": 4803.0
+        },
+        "dloss": {
+          "count": 175341.0,
+          "mean": 6.948009877895073,
+          "std": 52.73299929294158,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 2.0,
+          "99%": 178.60000000000582,
+          "max": 5484.0
+        },
+        "sinpkt": {
+          "count": 175341.0,
+          "mean": 985.9768636758545,
+          "std": 7242.245840957421,
+          "min": 0.0,
+          "1%": 0.001,
+          "25%": 0.008,
+          "50%": 0.279733,
+          "75%": 55.156896,
+          "99%": 60000.656,
+          "max": 84371.496
+        },
+        "dinpkt": {
+          "count": 175341.0,
+          "mean": 88.21629640844411,
+          "std": 987.0931947448008,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.006,
+          "75%": 51.053,
+          "99%": 441.6529688000037,
+          "max": 56716.824
+        },
+        "sjit": {
+          "count": 175341.0,
+          "mean": 4976.25422621193,
+          "std": 44965.84651918757,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 2513.295019,
+          "99%": 28834.22948600029,
+          "max": 1460480.016
+        },
+        "djit": {
+          "count": 175341.0,
+          "mean": 604.3538264155103,
+          "std": 4061.0432811266783,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 114.990625,
+          "99%": 9466.018592800005,
+          "max": 289388.2697
+        },
+        "swin": {
+          "count": 175341.0,
+          "mean": 116.25733855743951,
+          "std": 127.00102415612092,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 255.0,
+          "99%": 255.0,
+          "max": 255.0
+        },
+        "stcpb": {
+          "count": 175341.0,
+          "mean": 969250421.9105115,
+          "std": 1355264249.263036,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 1916651334.0,
+          "99%": 4201220698.0,
+          "max": 4294958913.0
+        },
+        "dtcpb": {
+          "count": 175341.0,
+          "mean": 968877027.0711528,
+          "std": 1353999546.225652,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 1913674673.0,
+          "99%": 4198113418.8,
+          "max": 4294881924.0
+        },
+        "dwin": {
+          "count": 175341.0,
+          "mean": 115.01362487952048,
+          "std": 126.88652954242663,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 255.0,
+          "99%": 255.0,
+          "max": 255.0
+        },
+        "tcprtt": {
+          "count": 175341.0,
+          "mean": 0.041395644355855,
+          "std": 0.079353971826798,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 0.065481,
+          "99%": 0.2773218,
+          "max": 2.518893
+        },
+        "synack": {
+          "count": 175341.0,
+          "mean": 0.0210204504765,
+          "std": 0.0433997835081,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 0.023268,
+          "99%": 0.1556348,
+          "max": 2.100352
+        },
+        "ackdat": {
+          "count": 175341.0,
+          "mean": 0.020375193879355,
+          "std": 0.040506355913429,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 0.038906,
+          "99%": 0.1450668,
+          "max": 1.520884
+        },
+        "smean": {
+          "count": 175341.0,
+          "mean": 136.7517694093224,
+          "std": 204.67735958881985,
+          "min": 28.0,
+          "1%": 45.0,
+          "25%": 57.0,
+          "50%": 73.0,
+          "75%": 100.0,
+          "99%": 1137.0,
+          "max": 1504.0
+        },
+        "dmean": {
+          "count": 175341.0,
+          "mean": 124.17338215249143,
+          "std": 258.31705598827045,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 44.0,
+          "75%": 89.0,
+          "99%": 1252.0,
+          "max": 1458.0
+        },
+        "trans_depth": {
+          "count": 175341.0,
+          "mean": 0.105982057818765,
+          "std": 0.776910786177678,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 0.0,
+          "99%": 1.0,
+          "max": 172.0
+        },
+        "response_body_len": {
+          "count": 175341.0,
+          "mean": 2144.2916545474245,
+          "std": 54207.96729413286,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 0.0,
+          "99%": 3924.0,
+          "max": 6558056.0
+        },
+        "ct_srv_src": {
+          "count": 175341.0,
+          "mean": 9.306437170998226,
+          "std": 10.70433122059233,
+          "min": 1.0,
+          "1%": 1.0,
+          "25%": 2.0,
+          "50%": 5.0,
+          "75%": 12.0,
+          "99%": 41.0,
+          "max": 63.0
+        },
+        "ct_state_ttl": {
+          "count": 175341.0,
+          "mean": 1.304178714618942,
+          "std": 0.954406098996158,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 1.0,
+          "50%": 1.0,
+          "75%": 2.0,
+          "99%": 6.0,
+          "max": 6.0
+        },
+        "ct_dst_ltm": {
+          "count": 175341.0,
+          "mean": 6.193936386811983,
+          "std": 8.052476384089168,
+          "min": 1.0,
+          "1%": 1.0,
+          "25%": 1.0,
+          "50%": 2.0,
+          "75%": 7.0,
+          "99%": 34.0,
+          "max": 51.0
+        },
+        "ct_src_dport_ltm": {
+          "count": 175341.0,
+          "mean": 5.383538362390998,
+          "std": 8.047104197483023,
+          "min": 1.0,
+          "1%": 1.0,
+          "25%": 1.0,
+          "50%": 1.0,
+          "75%": 5.0,
+          "99%": 34.0,
+          "max": 51.0
+        },
+        "ct_dst_sport_ltm": {
+          "count": 175341.0,
+          "mean": 4.206255239789895,
+          "std": 5.783585061266456,
+          "min": 1.0,
+          "1%": 1.0,
+          "25%": 1.0,
+          "50%": 1.0,
+          "75%": 3.0,
+          "99%": 18.0,
+          "max": 46.0
+        },
+        "ct_dst_src_ltm": {
+          "count": 175341.0,
+          "mean": 8.729880632595913,
+          "std": 10.95618557595772,
+          "min": 1.0,
+          "1%": 1.0,
+          "25%": 1.0,
+          "50%": 3.0,
+          "75%": 12.0,
+          "99%": 41.0,
+          "max": 65.0
+        },
+        "is_ftp_login": {
+          "count": 175341.0,
+          "mean": 0.014948015581068,
+          "std": 0.12604804738505,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 0.0,
+          "99%": 1.0,
+          "max": 4.0
+        },
+        "ct_ftp_cmd": {
+          "count": 175341.0,
+          "mean": 0.014948015581068,
+          "std": 0.12604804738505,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 0.0,
+          "99%": 1.0,
+          "max": 4.0
+        },
+        "ct_flw_http_mthd": {
+          "count": 175341.0,
+          "mean": 0.133066424852145,
+          "std": 0.701207606749996,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 0.0,
+          "99%": 1.0,
+          "max": 30.0
+        },
+        "ct_src_ltm": {
+          "count": 175341.0,
+          "mean": 6.955789005423717,
+          "std": 8.321492728163477,
+          "min": 1.0,
+          "1%": 1.0,
+          "25%": 2.0,
+          "50%": 3.0,
+          "75%": 9.0,
+          "99%": 34.0,
+          "max": 60.0
+        },
+        "ct_srv_dst": {
+          "count": 175341.0,
+          "mean": 9.100757951648502,
+          "std": 10.75695199096367,
+          "min": 1.0,
+          "1%": 1.0,
+          "25%": 2.0,
+          "50%": 4.0,
+          "75%": 12.0,
+          "99%": 41.0,
+          "max": 62.0
+        },
+        "is_sm_ips_ports": {
+          "count": 175341.0,
+          "mean": 0.015752162928237,
+          "std": 0.124515544065779,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 0.0,
+          "99%": 1.0,
+          "max": 1.0
+        }
+      }
+    },
+    "testing": {
+      "shape": [
+        82332,
+        45
+      ],
+      "target_counts": {
+        "0": 37000,
+        "1": 45332
+      },
+      "target_proportions": {
+        "0": 0.449399990283243,
+        "1": 0.550600009716757
+      },
+      "attack_category_counts": {
+        "Analysis": 677,
+        "Backdoor": 583,
+        "DoS": 4089,
+        "Exploits": 11132,
+        "Fuzzers": 6062,
+        "Generic": 18871,
+        "Normal": 37000,
+        "Reconnaissance": 3496,
+        "Shellcode": 378,
+        "Worms": 44
+      },
+      "missing_by_column": {
+        "id": 0,
+        "dur": 0,
+        "proto": 0,
+        "service": 0,
+        "state": 0,
+        "spkts": 0,
+        "dpkts": 0,
+        "sbytes": 0,
+        "dbytes": 0,
+        "rate": 0,
+        "sttl": 0,
+        "dttl": 0,
+        "sload": 0,
+        "dload": 0,
+        "sloss": 0,
+        "dloss": 0,
+        "sinpkt": 0,
+        "dinpkt": 0,
+        "sjit": 0,
+        "djit": 0,
+        "swin": 0,
+        "stcpb": 0,
+        "dtcpb": 0,
+        "dwin": 0,
+        "tcprtt": 0,
+        "synack": 0,
+        "ackdat": 0,
+        "smean": 0,
+        "dmean": 0,
+        "trans_depth": 0,
+        "response_body_len": 0,
+        "ct_srv_src": 0,
+        "ct_state_ttl": 0,
+        "ct_dst_ltm": 0,
+        "ct_src_dport_ltm": 0,
+        "ct_dst_sport_ltm": 0,
+        "ct_dst_src_ltm": 0,
+        "is_ftp_login": 0,
+        "ct_ftp_cmd": 0,
+        "ct_flw_http_mthd": 0,
+        "ct_src_ltm": 0,
+        "ct_srv_dst": 0,
+        "is_sm_ips_ports": 0,
+        "attack_cat": 0,
+        "label": 0
+      },
+      "non_finite_numeric": {
+        "id": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dur": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "spkts": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dpkts": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "sbytes": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dbytes": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "rate": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "sttl": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dttl": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "sload": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dload": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "sloss": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dloss": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "sinpkt": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dinpkt": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "sjit": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "djit": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "swin": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "stcpb": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dtcpb": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dwin": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "tcprtt": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "synack": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ackdat": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "smean": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "dmean": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "trans_depth": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "response_body_len": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_srv_src": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_state_ttl": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_dst_ltm": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_src_dport_ltm": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_dst_sport_ltm": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_dst_src_ltm": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "is_ftp_login": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_ftp_cmd": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_flw_http_mthd": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_src_ltm": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "ct_srv_dst": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "is_sm_ips_ports": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        },
+        "label": {
+          "missing": 0,
+          "positive_infinity": 0,
+          "negative_infinity": 0
+        }
+      },
+      "categorical_cardinality": {
+        "proto": 131,
+        "service": 13,
+        "state": 7
+      },
+      "numeric_summary": {
+        "dur": {
+          "count": 82332.0,
+          "mean": 1.0067561463465,
+          "std": 4.710444410846159,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 8e-06,
+          "50%": 0.014138,
+          "75%": 0.71936025,
+          "99%": 22.04829,
+          "max": 59.999989
+        },
+        "spkts": {
+          "count": 82332.0,
+          "mean": 18.666472331535733,
+          "std": 133.91635344919015,
+          "min": 1.0,
+          "1%": 1.0,
+          "25%": 2.0,
+          "50%": 6.0,
+          "75%": 12.0,
+          "99%": 208.0,
+          "max": 10646.0
+        },
+        "dpkts": {
+          "count": 82332.0,
+          "mean": 17.54593596657436,
+          "std": 115.57408562825539,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 2.0,
+          "75%": 10.0,
+          "99%": 252.0,
+          "max": 11018.0
+        },
+        "sbytes": {
+          "count": 82332.0,
+          "mean": 7993.908164504688,
+          "std": 171642.2618800507,
+          "min": 24.0,
+          "1%": 46.0,
+          "25%": 114.0,
+          "50%": 534.0,
+          "75%": 1280.0,
+          "99%": 69970.04000000004,
+          "max": 14355774.0
+        },
+        "dbytes": {
+          "count": 82332.0,
+          "mean": 13233.78556332896,
+          "std": 151471.45609124954,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 178.0,
+          "75%": 956.0,
+          "99%": 207751.0,
+          "max": 14657531.0
+        },
+        "rate": {
+          "count": 82332.0,
+          "mean": 82410.88673910811,
+          "std": 148620.3670405897,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 28.606114,
+          "50%": 2650.176667,
+          "75%": 111111.1072,
+          "99%": 1000000.003,
+          "max": 1000000.003
+        },
+        "sttl": {
+          "count": 82332.0,
+          "mean": 180.96766749259098,
+          "std": 101.51335750093565,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 62.0,
+          "50%": 254.0,
+          "75%": 254.0,
+          "99%": 254.0,
+          "max": 255.0
+        },
+        "dttl": {
+          "count": 82332.0,
+          "mean": 95.71300344944858,
+          "std": 116.66772163700348,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 29.0,
+          "75%": 252.0,
+          "99%": 252.0,
+          "max": 253.0
+        },
+        "sload": {
+          "count": 82332.0,
+          "mean": 64549016.914059296,
+          "std": 179861832.6300027,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 11202.4667975,
+          "50%": 577003.21875,
+          "75%": 65142856.0,
+          "99%": 800000000.0,
+          "max": 5268000256.0
+        },
+        "dload": {
+          "count": 82332.0,
+          "mean": 630546.9589998035,
+          "std": 2393000.555645627,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 2112.951416,
+          "75%": 15858.082275,
+          "99%": 14180870.830000004,
+          "max": 20821108.0
+        },
+        "sloss": {
+          "count": 82332.0,
+          "mean": 4.753692367487733,
+          "std": 64.64961956032252,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 1.0,
+          "75%": 3.0,
+          "99%": 39.0,
+          "max": 5319.0
+        },
+        "dloss": {
+          "count": 82332.0,
+          "mean": 6.308555604139339,
+          "std": 55.70802143325085,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 2.0,
+          "99%": 97.69000000000233,
+          "max": 5507.0
+        },
+        "sinpkt": {
+          "count": 82332.0,
+          "mean": 755.3943010848151,
+          "std": 6182.615731603772,
+          "min": 0.0,
+          "1%": 0.001,
+          "25%": 0.008,
+          "50%": 0.5579285,
+          "75%": 63.40944425,
+          "99%": 60000.06856,
+          "max": 60009.992
+        },
+        "dinpkt": {
+          "count": 82332.0,
+          "mean": 121.70128382695671,
+          "std": 1292.378498781412,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.01,
+          "75%": 63.13636875,
+          "99%": 556.0523542200011,
+          "max": 57739.24
+        },
+        "sjit": {
+          "count": 82332.0,
+          "mean": 6363.075099675206,
+          "std": 56724.01668947716,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 17.6239185,
+          "75%": 3219.33241225,
+          "99%": 31014.052,
+          "max": 1483830.917
+        },
+        "djit": {
+          "count": 82332.0,
+          "mean": 535.1804302089224,
+          "std": 3635.305382910511,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 128.45991425,
+          "99%": 9049.68500940002,
+          "max": 463199.2401
+        },
+        "swin": {
+          "count": 82332.0,
+          "mean": 133.45908030899287,
+          "std": 127.35699974821928,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 255.0,
+          "75%": 255.0,
+          "99%": 255.0,
+          "max": 255.0
+        },
+        "stcpb": {
+          "count": 82332.0,
+          "mean": 1084641551.1152892,
+          "std": 1390859761.610447,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 27888855.0,
+          "75%": 2171309606.5,
+          "99%": 4213679682.8400006,
+          "max": 4294949667.0
+        },
+        "dtcpb": {
+          "count": 82332.0,
+          "mean": 1073464670.8803867,
+          "std": 1381996192.032797,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 28569748.5,
+          "75%": 2144205173.0,
+          "99%": 4209814272.39,
+          "max": 4294880717.0
+        },
+        "dwin": {
+          "count": 82332.0,
+          "mean": 128.28662002623525,
+          "std": 127.49137005592411,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 255.0,
+          "75%": 255.0,
+          "99%": 255.0,
+          "max": 255.0
+        },
+        "tcprtt": {
+          "count": 82332.0,
+          "mean": 0.055925044429869,
+          "std": 0.116021771160041,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.000551,
+          "75%": 0.10554075,
+          "99%": 0.35758065,
+          "max": 3.821465
+        },
+        "synack": {
+          "count": 82332.0,
+          "mean": 0.029255929201283,
+          "std": 0.070853521419126,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.000441,
+          "75%": 0.0525955,
+          "99%": 0.19950351,
+          "max": 3.226788
+        },
+        "ackdat": {
+          "count": 82332.0,
+          "mean": 0.026669115228587,
+          "std": 0.055093538334031,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 8e-05,
+          "75%": 0.04881625,
+          "99%": 0.17393668,
+          "max": 2.928778
+        },
+        "smean": {
+          "count": 82332.0,
+          "mean": 139.52860370208424,
+          "std": 208.47206330498105,
+          "min": 24.0,
+          "1%": 43.0,
+          "25%": 57.0,
+          "50%": 65.0,
+          "75%": 100.0,
+          "99%": 1137.0,
+          "max": 1504.0
+        },
+        "dmean": {
+          "count": 82332.0,
+          "mean": 116.2750692318904,
+          "std": 244.60027141356582,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 44.0,
+          "75%": 87.0,
+          "99%": 1250.0,
+          "max": 1500.0
+        },
+        "trans_depth": {
+          "count": 82332.0,
+          "mean": 0.094276830394014,
+          "std": 0.542921818978476,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 0.0,
+          "99%": 1.0,
+          "max": 131.0
+        },
+        "response_body_len": {
+          "count": 82332.0,
+          "mean": 1595.3718845649323,
+          "std": 38066.97229164302,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 0.0,
+          "99%": 3924.0,
+          "max": 5242880.0
+        },
+        "ct_srv_src": {
+          "count": 82332.0,
+          "mean": 9.54660399358694,
+          "std": 11.09028854502271,
+          "min": 1.0,
+          "1%": 1.0,
+          "25%": 2.0,
+          "50%": 5.0,
+          "75%": 11.0,
+          "99%": 46.0,
+          "max": 63.0
+        },
+        "ct_state_ttl": {
+          "count": 82332.0,
+          "mean": 1.369273186610309,
+          "std": 1.067188091051353,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 1.0,
+          "50%": 1.0,
+          "75%": 2.0,
+          "99%": 6.0,
+          "max": 6.0
+        },
+        "ct_dst_ltm": {
+          "count": 82332.0,
+          "mean": 5.744922994704368,
+          "std": 8.418111964770473,
+          "min": 1.0,
+          "1%": 1.0,
+          "25%": 1.0,
+          "50%": 2.0,
+          "75%": 6.0,
+          "99%": 43.0,
+          "max": 59.0
+        },
+        "ct_src_dport_ltm": {
+          "count": 82332.0,
+          "mean": 4.928897633969781,
+          "std": 8.389545255933495,
+          "min": 1.0,
+          "1%": 1.0,
+          "25%": 1.0,
+          "50%": 1.0,
+          "75%": 4.0,
+          "99%": 43.0,
+          "max": 59.0
+        },
+        "ct_dst_sport_ltm": {
+          "count": 82332.0,
+          "mean": 3.663010737015984,
+          "std": 5.915386045711441,
+          "min": 1.0,
+          "1%": 1.0,
+          "25%": 1.0,
+          "50%": 1.0,
+          "75%": 3.0,
+          "99%": 25.0,
+          "max": 38.0
+        },
+        "ct_dst_src_ltm": {
+          "count": 82332.0,
+          "mean": 7.456359617159792,
+          "std": 11.415191374447998,
+          "min": 1.0,
+          "1%": 1.0,
+          "25%": 1.0,
+          "50%": 3.0,
+          "75%": 6.0,
+          "99%": 46.0,
+          "max": 63.0
+        },
+        "is_ftp_login": {
+          "count": 82332.0,
+          "mean": 0.008283534956032,
+          "std": 0.091171193528968,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 0.0,
+          "99%": 0.0,
+          "max": 2.0
+        },
+        "ct_ftp_cmd": {
+          "count": 82332.0,
+          "mean": 0.008380702521498,
+          "std": 0.09248507528583,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 0.0,
+          "99%": 0.0,
+          "max": 2.0
+        },
+        "ct_flw_http_mthd": {
+          "count": 82332.0,
+          "mean": 0.129742991789341,
+          "std": 0.638682574638062,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 0.0,
+          "99%": 1.0,
+          "max": 16.0
+        },
+        "ct_src_ltm": {
+          "count": 82332.0,
+          "mean": 6.468359811494923,
+          "std": 8.543926678517815,
+          "min": 1.0,
+          "1%": 1.0,
+          "25%": 1.0,
+          "50%": 3.0,
+          "75%": 7.0,
+          "99%": 43.0,
+          "max": 60.0
+        },
+        "ct_srv_dst": {
+          "count": 82332.0,
+          "mean": 9.164261769421367,
+          "std": 11.121413377603817,
+          "min": 1.0,
+          "1%": 1.0,
+          "25%": 2.0,
+          "50%": 5.0,
+          "75%": 11.0,
+          "99%": 46.0,
+          "max": 62.0
+        },
+        "is_sm_ips_ports": {
+          "count": 82332.0,
+          "mean": 0.011125686245931,
+          "std": 0.104890604830252,
+          "min": 0.0,
+          "1%": 0.0,
+          "25%": 0.0,
+          "50%": 0.0,
+          "75%": 0.0,
+          "99%": 1.0,
+          "max": 1.0
+        }
+      }
+    }
+  },
+  "training_spearman_with_label": {
+    "sttl": 0.732497501503112,
+    "ct_state_ttl": 0.644469387791315,
+    "dload": -0.62576759831979,
+    "dmean": -0.546298892319442,
+    "dbytes": -0.491294577224275,
+    "dpkts": -0.485020396081524,
+    "ct_dst_sport_ltm": 0.429938640729804,
+    "dloss": -0.388440047584533,
+    "sloss": -0.380455080901379,
+    "spkts": -0.354145742480211,
+    "sbytes": -0.336101901613448,
+    "swin": -0.333654325620078,
+    "ct_src_dport_ltm": 0.326236075223316,
+    "dwin": -0.319644439024604,
+    "stcpb": -0.303154947242979,
+    "dtcpb": -0.300511642626456,
+    "sload": 0.287639757341016,
+    "rate": 0.286697038014045,
+    "dinpkt": -0.274874269218957,
+    "dttl": -0.248690978736263,
+    "djit": -0.239723668500544,
+    "sinpkt": -0.23739011178003,
+    "dur": -0.230191359475871,
+    "ct_dst_src_ltm": 0.22025947425041,
+    "sjit": -0.200943152845458,
+    "is_sm_ips_ports": -0.184679498203739,
+    "synack": -0.165046225739077,
+    "tcprtt": -0.162669627928798,
+    "ackdat": -0.155421264551014,
+    "ct_srv_src": 0.094172365362322,
+    "ct_src_ltm": 0.08538223807052,
+    "ct_srv_dst": 0.07025948918602,
+    "smean": -0.061238721856182,
+    "response_body_len": -0.057357325349699,
+    "ct_dst_ltm": 0.033479442099736,
+    "ct_flw_http_mthd": 0.020787555900463,
+    "trans_depth": 0.020774168645579,
+    "ct_ftp_cmd": -0.013144956714986,
+    "is_ftp_login": -0.013144956714986
+  }
+}
