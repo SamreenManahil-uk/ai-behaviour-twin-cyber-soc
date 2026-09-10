@@ -1,0 +1,6 @@
+@CyberSoc.Api_HostAddress = http://localhost:5080
+
+GET {{CyberSoc.Api_HostAddress}}/api/health
+Accept: application/json
+
+###
