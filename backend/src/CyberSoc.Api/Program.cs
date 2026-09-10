@@ -1,9 +1,43 @@
+using Microsoft.AspNetCore.Diagnostics;
+using CyberSoc.Api.Configuration;
+using CyberSoc.Api.Integration.Ml;
+using CyberSoc.Api.Application;
+using CyberSoc.Api.Authentication;
+using Microsoft.OpenApi;
+using CyberSoc.Api.Data;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers().AddJsonOptions(options =>
+builder.Services.AddSocAuthentication(builder.Configuration);
+builder.Services.AddProblemDetails();
+builder.Services.AddScoped<EndpointService>();
+builder.Services.AddScoped<EventService>();
+builder.Services.AddScoped<AlertService>();
+builder.Services.AddScoped<IncidentService>();
+builder.Services.AddScoped<ThreatService>();
+builder.Services.Configure<MlServiceOptions>(
+    builder.Configuration.GetSection(MlServiceOptions.SectionName));
+builder.Services.AddHttpClient<IMlInferenceClient, MlInferenceClient>(client =>
+{
+    client.Timeout = Timeout.InfiniteTimeSpan;
+});
+
+builder.Services.AddDbContext<CyberSocDbContext>(options =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("PostgreSql");
+    if (string.IsNullOrWhiteSpace(connectionString))
+    {
+        throw new InvalidOperationException(
+            "PostgreSQL persistence requires ConnectionStrings:PostgreSql. Set ConnectionStrings__PostgreSql before using database services.");
+    }
+
+    options.UseNpgsql(connectionString);
+});
+
+builder.Services.AddControllers(options => options.Filters.Add<SocExceptionFilter>()).AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
@@ -18,11 +52,48 @@ builder.Services.AddOpenApi(options =>
         document.Info.Title = "Cyber SOC API";
         document.Info.Version = "v1";
         document.Info.Description = "AI Behaviour-Twin Cyber SOC API. Provides service liveness information.";
+        document.Components ??= new OpenApiComponents();
+        document.Components.SecuritySchemes = new Dictionary<string, IOpenApiSecurityScheme>
+        {
+            ["Bearer"] = new OpenApiSecurityScheme { Type = SecuritySchemeType.Http, Scheme = "bearer", BearerFormat = "JWT" }
+        };
+        foreach (var description in context.DescriptionGroups.SelectMany(group => group.Items))
+        {
+            var metadata = description.ActionDescriptor.EndpointMetadata;
+            if (metadata.OfType<Microsoft.AspNetCore.Authorization.IAuthorizeData>().Any() &&
+                !metadata.OfType<Microsoft.AspNetCore.Authorization.IAllowAnonymous>().Any() &&
+                document.Paths.TryGetValue("/" + description.RelativePath, out var path) &&
+                path.Operations is not null && description.HttpMethod is not null &&
+                path.Operations.TryGetValue(new HttpMethod(description.HttpMethod), out var operation))
+            {
+                operation.Security = [new OpenApiSecurityRequirement { [new OpenApiSecuritySchemeReference("Bearer", document)] = [] }];
+            }
+        }
         return Task.CompletedTask;
     });
 });
 
 var app = builder.Build();
+
+app.UseExceptionHandler(new ExceptionHandlerOptions
+{
+    SuppressDiagnosticsCallback = _ => true,
+    ExceptionHandler = context =>
+    {
+        var exception = context.Features
+            .Get<IExceptionHandlerFeature>()?.Error;
+        context.RequestServices
+            .GetRequiredService<ILoggerFactory>()
+            .CreateLogger("SafeErrors")
+            .LogError(
+                exception,
+                "Request failed. Trace identifier: {TraceIdentifier}",
+                context.TraceIdentifier);
+        return Results.Problem(statusCode: 500, title: "Unable to complete request.").ExecuteAsync(context);
+    }
+});
+app.UseAuthentication();
+app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {

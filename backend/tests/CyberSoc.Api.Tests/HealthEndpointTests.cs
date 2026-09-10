@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace CyberSoc.Api.Tests;
 
-public sealed class HealthEndpointTests(WebApplicationFactory<Program> factory)
-    : IClassFixture<WebApplicationFactory<Program>>
+public sealed class HealthEndpointTests(AuthTestFactory factory)
+    : IClassFixture<AuthTestFactory>
 {
     [Fact]
     public async Task GetHealth_ReturnsHealthyJsonWithVersionAndUtcTimestamp()

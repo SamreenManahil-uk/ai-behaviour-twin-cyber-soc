@@ -10,7 +10,7 @@ public sealed class ApiDocumentationTests
     [Fact]
     public async Task Development_ExposesOpenApiAndSwaggerUi()
     {
-        await using var factory = new WebApplicationFactory<Program>()
+        await using var factory = new AuthTestFactory()
             .WithWebHostBuilder(builder => builder.UseEnvironment("Development"));
         using var client = factory.CreateClient();
         using var response = await client.GetAsync("/openapi/v1.json");
@@ -27,7 +27,7 @@ public sealed class ApiDocumentationTests
     [InlineData("/swagger/index.html")]
     public async Task Production_DoesNotExposeDocumentation(string route)
     {
-        await using var factory = new WebApplicationFactory<Program>()
+        await using var factory = new AuthTestFactory()
             .WithWebHostBuilder(builder => builder.UseEnvironment("Production"));
         using var client = factory.CreateClient();
         using var response = await client.GetAsync(route);
