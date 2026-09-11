@@ -17,7 +17,7 @@ public sealed class PersistenceModelTests
     {
         using var context = CreateContext();
         var entities = context.Model.GetEntityTypes().ToArray();
-        Assert.Equal(6, entities.Length);
+        Assert.Equal(7, entities.Length);
         foreach (var type in new[] { typeof(User), typeof(Endpoint), typeof(SecurityEvent), typeof(Alert), typeof(Incident), typeof(Threat) })
         {
             var entity = context.Model.FindEntityType(type);
@@ -74,7 +74,7 @@ public sealed class PersistenceModelTests
     {
         using var context = CreateContext();
         var keys = context.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()).ToArray();
-        Assert.Equal(5, keys.Length);
+        Assert.Equal(8, keys.Length);
         Assert.All(keys, key => Assert.Equal(DeleteBehavior.Restrict, key.DeleteBehavior));
     }
 
@@ -106,7 +106,7 @@ public sealed class PersistenceModelTests
     {
         using var context = CreateContext();
         var properties = context.Model.GetEntityTypes().SelectMany(e => e.GetProperties()).Where(p => p.ClrType.IsEnum).ToArray();
-        Assert.Equal(10, properties.Length);
+        Assert.Equal(12, properties.Length);
         foreach (var property in properties)
         {
             var converter = property.GetTypeMapping().Converter;
@@ -126,7 +126,7 @@ public sealed class PersistenceModelTests
         using var context = CreateContext();
         var timestamps = context.Model.GetEntityTypes().SelectMany(e => e.GetProperties())
             .Where(p => p.ClrType == typeof(DateTimeOffset) || p.ClrType == typeof(DateTimeOffset?)).ToArray();
-        Assert.Equal(14, timestamps.Length);
+        Assert.Equal(16, timestamps.Length);
         Assert.All(timestamps, p => Assert.Equal("timestamp with time zone", p.GetColumnType()));
     }
 

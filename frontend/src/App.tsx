@@ -6,6 +6,7 @@ import { RouteLoader } from './components/ui/RouteLoader'
 import { AuthProvider } from './providers/AuthProvider'
 import { ThemeProvider } from './providers/ThemeProvider'
 import { ToastProvider } from './providers/ToastProvider'
+import { RealtimeProvider } from './realtime/RealtimeProvider'
 
 const OverviewPage = lazy(() =>
   import('./pages/OverviewPage').then((module) => ({
@@ -90,7 +91,8 @@ function App() {
     <ThemeProvider>
       <ToastProvider>
         <AuthProvider>
-          <BrowserRouter>
+          <RealtimeProvider>
+            <BrowserRouter>
             <Suspense fallback={<RouteLoader />}>
               <Routes>
                 <Route path="/login" element={<LoginPage />} />
@@ -113,7 +115,8 @@ function App() {
                 </Route>
               </Routes>
             </Suspense>
-          </BrowserRouter>
+            </BrowserRouter>
+          </RealtimeProvider>
         </AuthProvider>
       </ToastProvider>
     </ThemeProvider>

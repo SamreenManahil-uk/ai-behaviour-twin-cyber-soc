@@ -1,16 +1,14 @@
 import {
-  Ban,
   BellRing,
   CheckCircle2,
   Crosshair,
   Network,
-  ShieldOff,
-  Skull,
   TerminalSquare,
   UserRound,
 } from 'lucide-react'
 import type { DemoAlert } from '../../data/demoEventsAlerts'
 import { useToast } from '../../hooks/useToast'
+import { SimulatedSoarPanel } from './SimulatedSoarPanel'
 import { Badge } from '../ui/Badge'
 import { Button } from '../ui/Button'
 import { Drawer } from '../ui/Drawer'
@@ -45,15 +43,6 @@ export function AlertDetailsDrawer({
 
   if (!alert) {
     return null
-  }
-
-  function simulateAction(action: string) {
-    showToast({
-      title: `${action} requested`,
-      description:
-        'This is a safe simulated response. No real endpoint action occurred.',
-      variant: 'warning',
-    })
   }
 
   return (
@@ -188,44 +177,10 @@ export function AlertDetailsDrawer({
           </div>
         </section>
 
-        <section>
-          <p className="soc-label mb-3">Simulated SOAR recommendations</p>
-          <div className="grid gap-3 sm:grid-cols-2">
-            <Button
-              variant="outline"
-              leftIcon={<ShieldOff size={16} />}
-              onClick={() => simulateAction('Isolate endpoint')}
-            >
-              Isolate endpoint
-            </Button>
-            <Button
-              variant="outline"
-              leftIcon={<Skull size={16} />}
-              onClick={() => simulateAction('Kill process')}
-            >
-              Kill process
-            </Button>
-            <Button
-              variant="outline"
-              leftIcon={<Ban size={16} />}
-              onClick={() => simulateAction('Block IP')}
-            >
-              Block IP
-            </Button>
-            <Button
-              variant="outline"
-              leftIcon={<UserRound size={16} />}
-              onClick={() => simulateAction('Disable user')}
-            >
-              Disable user
-            </Button>
-          </div>
-
-          <p className="mt-3 text-[0.6875rem] leading-5 text-[var(--foreground-muted)]">
-            These buttons demonstrate future workflows only. They never execute
-            actions on real machines.
-          </p>
-        </section>
+        <SimulatedSoarPanel
+          key={alert.id}
+          alert={alert}
+        />
       </div>
     </Drawer>
   )

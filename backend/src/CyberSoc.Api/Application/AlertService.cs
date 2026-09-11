@@ -2,12 +2,17 @@ using System.Data;
 using CyberSoc.Api.Contracts.Common;
 using CyberSoc.Api.Contracts.Soc;
 using CyberSoc.Api.Data;
+using CyberSoc.Api.Realtime;
 using Microsoft.EntityFrameworkCore;
 
 namespace CyberSoc.Api.Application;
 
 /// <summary>Alert triage without detection or endpoint response actions.</summary>
-public sealed class AlertService(CyberSocDbContext db, TimeProvider clock)
+public sealed class AlertService(
+    CyberSocDbContext db,
+    TimeProvider clock,
+    IAlertRealtimePublisher? realtimePublisher = null,
+    ILogger<AlertService>? logger = null)
 {
     /// <summary>Lists bounded alert summaries without raw event payloads.</summary>
     public Task<PageResponse<AlertResponse>> ListAsync(AlertQuery filter, CancellationToken ct)
@@ -40,6 +45,30 @@ public sealed class AlertService(CyberSocDbContext db, TimeProvider clock)
         item.UpdatedAtUtc = clock.GetUtcNow();
         await db.SaveChangesAsync(ct);
         await transaction.CommitAsync(ct);
+        await PublishUpdatedBestEffortAsync(item);
         return SocMapping.Map(item);
+    }
+
+    private async Task PublishUpdatedBestEffortAsync(
+        CyberSoc.Api.Domain.Entities.Alert alert)
+    {
+        if (realtimePublisher is null)
+        {
+            return;
+        }
+
+        try
+        {
+            await realtimePublisher.PublishUpdatedAsync(
+                AlertRealtimeMapper.Map(alert),
+                CancellationToken.None);
+        }
+        catch (Exception exception)
+        {
+            logger?.LogWarning(
+                exception,
+                "Alert {AlertId} was persisted but its real-time notification could not be delivered.",
+                alert.Id);
+        }
     }
 }

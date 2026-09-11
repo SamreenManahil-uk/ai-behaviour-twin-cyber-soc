@@ -243,3 +243,14 @@ feature object to the private FastAPI service. Configure the internal URL with
 The client enforces a bounded timeout and translates upstream failures into safe
 ProblemDetails responses. It never logs raw security-event features or claims
 that the returned model scores are calibrated attack probabilities.
+
+## Real-time alert updates
+
+Authorized Admin and SOC Analyst clients can connect to `/hubs/alerts` using
+SignalR. Alert status changes are persisted and committed before a safe summary
+is broadcast through the `AlertUpdated` client method.
+
+Raw security-event payloads and alert descriptions are not broadcast. Real-time
+delivery is best effort; PostgreSQL remains the source of truth. A production
+deployment should use an outbox/message-broker design when guaranteed delivery
+is required. Browser WebSocket authentication requires HTTPS/WSS in production.

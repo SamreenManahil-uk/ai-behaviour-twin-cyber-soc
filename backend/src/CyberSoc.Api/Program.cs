@@ -1,3 +1,6 @@
+using CyberSoc.Api.Detection;
+using CyberSoc.Api.Authorization;
+using CyberSoc.Api.Realtime;
 using Microsoft.AspNetCore.Diagnostics;
 using CyberSoc.Api.Configuration;
 using CyberSoc.Api.Integration.Ml;
@@ -13,11 +16,33 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSocAuthentication(builder.Configuration);
 builder.Services.AddProblemDetails();
+builder.Services.AddSingleton<RuleDetectionEngine>();
+builder.Services.AddSignalR(options =>
+{
+    options.EnableDetailedErrors = false;
+    options.MaximumReceiveMessageSize = 16 * 1024;
+    options.MaximumParallelInvocationsPerClient = 1;
+    options.ClientTimeoutInterval = TimeSpan.FromSeconds(30);
+    options.KeepAliveInterval = TimeSpan.FromSeconds(15);
+}).AddJsonProtocol(options =>
+{
+    options.PayloadSerializerOptions.PropertyNamingPolicy =
+        JsonNamingPolicy.CamelCase;
+    options.PayloadSerializerOptions.Converters.Add(
+        new JsonStringEnumConverter(
+            JsonNamingPolicy.CamelCase,
+            allowIntegerValues: false));
+});
+builder.Services.AddSingleton<
+    IAlertRealtimePublisher,
+    SignalRAlertRealtimePublisher>();
 builder.Services.AddScoped<EndpointService>();
 builder.Services.AddScoped<EventService>();
 builder.Services.AddScoped<AlertService>();
 builder.Services.AddScoped<IncidentService>();
 builder.Services.AddScoped<ThreatService>();
+builder.Services.AddScoped<SimulatedSoarService>();
+builder.Services.AddSingleton<ISimulatedSoarExecutor, SimulatedSoarExecutor>();
 builder.Services.Configure<MlServiceOptions>(
     builder.Configuration.GetSection(MlServiceOptions.SectionName));
 builder.Services.AddHttpClient<IMlInferenceClient, MlInferenceClient>(client =>
@@ -106,6 +131,8 @@ if (app.Environment.IsDevelopment())
 }
 
 // This HTTP-only foundation has no HTTPS listener configured.
+app.MapHub<AlertHub>("/hubs/alerts")
+    .RequireAuthorization(SocPolicies.SocOperations);
 app.MapControllers();
 app.Run();
 

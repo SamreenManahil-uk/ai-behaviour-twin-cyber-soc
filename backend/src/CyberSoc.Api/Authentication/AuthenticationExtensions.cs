@@ -27,6 +27,20 @@ internal static class AuthenticationExtensions
                 bearer.TokenValidationParameters = jwt.Value.CreateValidationParameters();
                 bearer.Events = new JwtBearerEvents
                 {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken =
+                            context.Request.Query["access_token"].ToString();
+
+                        if (!string.IsNullOrWhiteSpace(accessToken) &&
+                            context.HttpContext.Request.Path
+                                .StartsWithSegments("/hubs/alerts"))
+                        {
+                            context.Token = accessToken;
+                        }
+
+                        return Task.CompletedTask;
+                    },
                     OnTokenValidated = context =>
                     {
                         var principal = context.Principal!;

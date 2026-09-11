@@ -20,6 +20,8 @@ public sealed class CyberSocDbContext(DbContextOptions<CyberSocDbContext> option
     public DbSet<Incident> Incidents => Set<Incident>();
     /// <summary>Threat indicators.</summary>
     public DbSet<Threat> Threats => Set<Threat>();
+    /// <summary>Immutable simulation-only response audit records.</summary>
+    public DbSet<SimulatedResponseAction> SimulatedResponseActions => Set<SimulatedResponseAction>();
 
     /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder modelBuilder)
