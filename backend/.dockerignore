@@ -1,0 +1,11 @@
+.cache
+**/bin
+**/obj
+**/TestResults
+tests
+.env
+.env.*
+!.env.example
+*.user
+*.suo
+*.log

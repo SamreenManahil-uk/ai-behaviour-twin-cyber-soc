@@ -1,0 +1,17 @@
+.venv
+.cache
+.pytest_cache
+.ruff_cache
+**/__pycache__
+**/*.pyc
+data
+models
+reports
+tests
+scripts
+.env
+.env.*
+!.env.example
+*.joblib
+*.png
+*.log

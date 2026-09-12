@@ -19,11 +19,121 @@ services:
       - source: initialize_app_role
         target: /docker-entrypoint-initdb.d/01-app-role.sh
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U \"$$APP_DB_USER\" -d cyber_soc"]
+      test:
+        - CMD-SHELL
+        - pg_isready -h 127.0.0.1 -U "$$APP_DB_USER" -d cyber_soc
       interval: 5s
       timeout: 5s
       retries: 12
       start_period: 10s
+    restart: unless-stopped
+
+  ml-service:
+    build:
+      context: ../../ml-service
+      dockerfile: Dockerfile
+    image: cyber-soc-ml:day5-local
+    container_name: cyber-soc-ml
+    ports:
+      - "127.0.0.1:${ML_HOST_PORT:-8001}:8001"
+    volumes:
+      - ../../ml-service/models:/app/models:ro
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/health', timeout=3)
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 25s
+    restart: unless-stopped
+
+  migrations:
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile
+      target: migrations
+    image: cyber-soc-migrations:day5-local
+    container_name: cyber-soc-migrations
+    environment:
+      ConnectionStrings__PostgreSql: "Host=postgres;Port=5432;Database=cyber_soc;Username=${POSTGRES_APP_USER:?Set POSTGRES_APP_USER in .env};Password=${POSTGRES_APP_PASSWORD:?Set POSTGRES_APP_PASSWORD in .env}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    security_opt:
+      - no-new-privileges:true
+    restart: "no"
+
+  backend:
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile
+      target: runtime
+    image: cyber-soc-backend:day5-local
+    container_name: cyber-soc-backend
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://0.0.0.0:8080
+      ConnectionStrings__PostgreSql: "Host=postgres;Port=5432;Database=cyber_soc;Username=${POSTGRES_APP_USER:?Set POSTGRES_APP_USER in .env};Password=${POSTGRES_APP_PASSWORD:?Set POSTGRES_APP_PASSWORD in .env}"
+      Jwt__Issuer: ${JWT_ISSUER:?Set JWT_ISSUER in .env}
+      Jwt__Audience: ${JWT_AUDIENCE:?Set JWT_AUDIENCE in .env}
+      Jwt__SigningKey: ${JWT_SIGNING_KEY:?Set JWT_SIGNING_KEY in .env}
+      Jwt__AccessTokenMinutes: ${JWT_ACCESS_TOKEN_MINUTES:-30}
+      MlService__BaseUrl: http://ml-service:8001
+    ports:
+      - "127.0.0.1:${BACKEND_HOST_PORT:-5080}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ml-service:
+        condition: service_healthy
+      migrations:
+        condition: service_completed_successfully
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - --fail
+        - --silent
+        - --show-error
+        - http://127.0.0.1:8080/api/health
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 25s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ../../frontend
+      dockerfile: Dockerfile
+    image: cyber-soc-frontend:day5-local
+    container_name: cyber-soc-frontend
+    ports:
+      - "127.0.0.1:${FRONTEND_HOST_PORT:-5173}:8080"
+    depends_on:
+      backend:
+        condition: service_healthy
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - --quiet
+        - --tries=1
+        - --spider
+        - http://127.0.0.1:8080/
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
     restart: unless-stopped
 
 volumes:
@@ -38,7 +148,15 @@ configs:
       psql -v ON_ERROR_STOP=1 --username "$$POSTGRES_USER" --dbname cyber_soc <<'SQL'
       \getenv app_user APP_DB_USER
       \getenv app_password APP_DB_PASSWORD
-      CREATE ROLE :"app_user" LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS PASSWORD :'app_password';
+      SELECT format(
+        'CREATE ROLE %I LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS PASSWORD %L',
+        :'app_user',
+        :'app_password'
+      )
+      WHERE NOT EXISTS (
+        SELECT FROM pg_catalog.pg_roles
+        WHERE rolname = :'app_user'
+      )\gexec
       ALTER DATABASE cyber_soc OWNER TO :"app_user";
       REVOKE ALL ON DATABASE cyber_soc FROM PUBLIC;
       REVOKE CREATE ON SCHEMA public FROM PUBLIC;
